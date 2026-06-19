@@ -1,8 +1,10 @@
 name: Hello World Workflow
 
+# Task 2 Trigger Test
+
 on:
   push:
-    branches: [main, develop]
+    branches: [main, working-beginner-ruchira]
   workflow_dispatch:
 
 jobs:
@@ -31,5 +33,10 @@ jobs:
       - name: List files
         run: ls -la
       
+      - name: Task 2 Test Message
+        run: echo "🚀 Task 2 completed - Workflow triggered by push event!"
+  
+
+
       - name: Print success message
         run: echo "✅ Workflow completed successfully!"
