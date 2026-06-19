@@ -21,18 +21,18 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
 
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4 
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: 'sample-app/package.json' 
+          cache-dependency-path: 'sample-app/package.json'
 
       - name: Install dependencies
         working-directory: ./sample-app
-        run: npm install 
+        run: npm install
 
       - name: Run linter
         working-directory: ./sample-app
@@ -52,9 +52,9 @@ jobs:
         working-directory: ./sample-app
         run: echo "Advanced Task 8 Build Output" > output.txt
 
-      # ⭐ TASK 8 - UPLOAD ARTIFACT (FIXED WITH @v4)
+      # ⭐ TASK 8 - UPLOAD ARTIFACT
       - name: Upload Task 8 artifact
-        uses: actions/upload-artifact@v4 
+        uses: actions/upload-artifact@v4
         with:
           name: task8-build-output
           path: sample-app/output.txt
@@ -75,9 +75,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4 
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4 
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
@@ -103,3 +103,16 @@ jobs:
           echo "🎯 Test Run Summary"
           echo "==================="
           echo "✅ All tests completed"
+
+  # ⭐ TASK 9 - CONDITIONAL DEPLOYMENT JOB
+  deploy:
+    name: Deploy Application
+    needs: [build-and-test, lint-check]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+      - name: Deploy Application Step
+        run: |
+          echo "🚀 Deploying application to production server..."
+          echo "Deployment completed successfully!"
