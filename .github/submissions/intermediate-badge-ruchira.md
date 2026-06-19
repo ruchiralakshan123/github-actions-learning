@@ -17,10 +17,17 @@
 
 ## 📷 Evidence
 
-### Task 4 & 5: Custom Workflow and Environment Variables
-*The screenshot below displays the printed global and local environment variables within the custom workflow log execution:*
+### Task 4: Create a Custom Workflow
+*The screenshot below shows the successful execution of the custom workflow (`custom-workflow.yml`) on the custom submission branch:*
 
-![Custom Workflow Environment Variables Output](./images/custom-workflow-env(2).png)
+![Custom Workflow Overall Run Success](./images/custom-workflow-run.png)
+
+---
+
+### Task 5: Add Environment Variables
+*The screenshot below displays the printed global and local environment variables within the workflow execution logs:*
+
+![Custom Workflow Environment Variables Output](./images/custom-workflow-env.png)
 
 ---
 
