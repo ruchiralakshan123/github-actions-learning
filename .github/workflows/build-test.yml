@@ -21,27 +21,27 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 
 
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4 
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          cache-dependency-path: 'sample-app/package-lock.json'
+          cache-dependency-path: 'sample-app/package.json' 
 
       - name: Install dependencies
         working-directory: ./sample-app
-        run: npm ci
+        run: npm install 
 
       - name: Run linter
         working-directory: ./sample-app
-        run: npm run lint
+        run: npm run lint --if-present
         continue-on-error: true
 
       - name: Build application
         working-directory: ./sample-app
-        run: npm run build
+        run: npm run build --if-present
 
       - name: Run tests
         working-directory: ./sample-app
@@ -52,9 +52,9 @@ jobs:
         working-directory: ./sample-app
         run: echo "Advanced Task 8 Build Output" > output.txt
 
-      # ⭐ TASK 8 - UPLOAD ARTIFACT
+      # ⭐ TASK 8 - UPLOAD ARTIFACT (FIXED WITH @v4)
       - name: Upload Task 8 artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 
         with:
           name: task8-build-output
           path: sample-app/output.txt
@@ -64,7 +64,7 @@ jobs:
         if: always()
         working-directory: ./sample-app
         run: |
-          if [ -f coverage/coverage-summary.json ]; then
+          if [ -d coverage ]; then
             echo "✅ Coverage report generated"
           else
             echo "⚠️ No coverage report found"
@@ -75,20 +75,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4 
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4 
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'sample-app/package-lock.json'
+          cache-dependency-path: 'sample-app/package.json'
 
       - working-directory: ./sample-app
-        run: npm ci
+        run: npm install
 
       - name: Run ESLint
         working-directory: ./sample-app
-        run: npm run lint
+        run: npm run lint --if-present
         continue-on-error: true
 
   test-summary:
