@@ -33,3 +33,9 @@ jobs:
         run: |
           echo "NODE_ENV = ${{ env.NODE_ENV }}"
           echo "LOG_LEVEL = ${{ env.LOG_LEVEL }}"
+
+       
+      - name: Access Secret
+        run: |
+          echo "Secret length:"
+          echo "${{ secrets.TEST_SECRET }}" | wc -c  
