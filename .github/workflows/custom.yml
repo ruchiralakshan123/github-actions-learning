@@ -1,0 +1,48 @@
+name: Custom Workflow
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  custom-job:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    env:
+      NODE_ENV: test
+      LOG_LEVEL: debug
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: |
+          cd sample-app
+          npm install
+
+      - name: Run tests
+        run: |
+          cd sample-app
+          npm test
+
+      - name: Print Environment Variables
+        run: |
+          echo "NODE_ENV = ${{ env.NODE_ENV }}"
+          echo "LOG_LEVEL = ${{ env.LOG_LEVEL }}"
+
+      - name: Print Node Version
+        run: node -v
+
+      - name: Access Secret
+        run: |
+          echo "Secret length:"
+          echo "${{ secrets.TEST_SECRET }}" | wc -c
